@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Love Arrow Shoot</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">設定</string>
+    <string name="title_activity_call_back">CallBackActivity</string>
+    <string name="twitter_consumer_key">p7yqzc4STV7C5kXQAYWcI4oxJ</string>
+    <string name="twitter_consumer_secret">uKebmlWCgrNUcOWioSww6pBvezKmiYrcYOjKbr5yK5DM05CabF</string>
+    <string name="twitter_oauth">認証</string>
+    <string name="title_activity_twitter_oauth">認証</string>
+    <string name="twitter_callback_url">myapp://lovearrowshoot</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_refresh">更新</string>
+    <string name="menu_tweet">ツイートする</string>
+    <string name="title_activity_tweet">ツイートする</string>
+</resources>
