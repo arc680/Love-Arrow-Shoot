@@ -2,7 +2,12 @@ package info.arc680.lovearrowshoot;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterFactory;
+import twitter4j.TwitterStream;
+import twitter4j.TwitterStreamFactory;
 import twitter4j.auth.AccessToken;
+import twitter4j.conf.ConfigurationBuilder;
+
+import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -73,5 +78,25 @@ public class TwitterUtils {
      */
     public static boolean hasAccessToken(Context context) {
         return loadAccessToken(context) != null;
+    }
+
+    /**
+     * TwitterStreamのインスタンス
+     *
+     * @param context
+     * @return
+     */
+    public static TwitterStream getTwitterStream(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        String token = preferences.getString(TOKEN, null);
+        String tokenSecret = preferences.getString(TOKEN_SECRET, null);
+        //Account account = AccountDao.getCurrentAccount(context);
+        ConfigurationBuilder conf = new ConfigurationBuilder()
+                .setOAuthConsumerKey(context.getString(R.string.twitter_consumer_key))
+                .setOAuthConsumerSecret(context.getString(R.string.twitter_consumer_secret))
+                .setOAuthAccessToken(token)
+                .setOAuthAccessTokenSecret(tokenSecret);
+        return new TwitterStreamFactory(conf.build()).getInstance();
     }
 }
