@@ -36,4 +36,46 @@
         android:layout_below="@+id/name"
         android:text="本文本文本文本文本文本文本文本文本文本文" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="via入るところ"
+        android:id="@+id/via"
+        android:layout_below="@+id/text"
+        android:layout_alignStart="@+id/text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="日時"
+        android:id="@+id/date"
+        android:layout_below="@+id/text"
+        android:layout_alignTop="@+id/via"
+        android:layout_alignEnd="@+id/text" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ReTweeted by "
+        android:id="@+id/retweet_label"
+        android:layout_below="@+id/via"
+        android:layout_alignStart="@+id/via" />
+
+    <com.loopj.android.image.SmartImageView
+        android:id="@+id/retweet_user_icon"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_action_person"
+        android:layout_below="@+id/via"
+        android:layout_toEndOf="@+id/retweet_label" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ReTweetした人"
+        android:id="@+id/retweet_user"
+        android:layout_below="@+id/via"
+        android:layout_toEndOf="@+id/retweet_user_icon" />
+
+
+
 </RelativeLayout>
