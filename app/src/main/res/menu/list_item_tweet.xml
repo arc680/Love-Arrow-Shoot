@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="info.arc680.lovearrowshoot.TweetActivity">
+    <item
+        android:id="@+id/list_item_accout"
+        android:showAsAction="never"
+        android:title="アカウント" />
+    <item
+        android:id="@+id/list_item_reply"
+        android:showAsAction="never"
+        android:title="返信" />
+</menu>

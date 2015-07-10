@@ -15,11 +15,13 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -32,6 +34,7 @@ import com.loopj.android.image.SmartImageView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import twitter4j.DirectMessage;
 import twitter4j.ResponseList;
@@ -107,7 +110,91 @@ public class MainActivity extends ActionBarActivity {
 
                 }
             });
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent,
+                                        View view, int pos, long id) {
+
+                    // 選択アイテムを取得
+                    ListView listView = (ListView) parent;
+                    Status status = (Status) listView.getItemAtPosition(pos);
+                    String item = status.getUser().getScreenName();
+
+                    // 通知ダイアログを表示
+                    showToast(item);
+                }
+            });
+            //registerForContextMenu(listView);
         }
+    }
+
+    static final int CONTEXT_MENU1_ID = 0;
+    static final int CONTEXT_MENU2_ID = 1;
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        getMenuInflater().inflate(R.menu.list_item_tweet, menu);
+
+        // コンテキストメニューのいろいろを選択したツイートに合わせる
+        // TODO listview と同じで、RT かどうかで分岐が必要
+
+        AdapterView.AdapterContextMenuInfo adapterInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        int pos = adapterInfo.position;
+        Status status = (Status) listView.getItemAtPosition(pos);
+
+        menu.setHeaderTitle(status.getText());
+
+        MenuItem item = menu.findItem(R.id.list_item_accout);
+        item.setTitle(status.getUser().getScreenName());
+
+
+    }
+
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        if (item.getItemId() != R.id.list_item_accout & item.getItemId() != R.id.list_item_reply) {
+            return false;
+        }
+
+        // MenuItemからContextMenuInfoを取得し、AdapterContextMenuInfoにキャストします
+        ContextMenu.ContextMenuInfo menuInfo = item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo adapterInfo = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+        // AdapterContextMenuInfoから長押ししたリストアイテムのpositionを取得します
+        int pos = adapterInfo.position;
+
+        // ListViewから長押しされたリストアイテムを取得します
+        Status status = (Status) listView.getItemAtPosition(pos);
+        // ListViewからセットされているAdapterを取得します
+        // BookArrayAdapter adapter = (BookArrayAdapter) mListView.getAdapter();
+
+        if (item.getItemId() == R.id.list_item_accout) {
+            // TODO:Adapterを使用して長押ししたデータを削除してください
+        } else if (item.getItemId() == R.id.list_item_reply) {
+            // TODO:Adapterを使用して長押ししたデータを追加してください
+        }
+        // TODO:Adapterを使用して表示されているデータを更新してください
+
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerForContextMenu(listView);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // ContextMenuのイベントリスナ
+        // はActivityが切り替わったら切っておかなきゃ行けない
+        unregisterForContextMenu(listView);
     }
 
     @Override
